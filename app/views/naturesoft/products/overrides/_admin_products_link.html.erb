@@ -1,0 +1,8 @@
+<li>
+  <a href="#"><i class="icon-stack3"></i> <span><%= t(:product) %></span></a>
+  <ul>
+      <li<% if["naturesoft/products/admin/manufacturers"].include?(params[:controller]) %>class="active"<% end %>>
+        <%= link_to 'Manufacturers', naturesoft_products.admin_manufacturers_path %>
+      </li>
+  </ul>
+</li>
