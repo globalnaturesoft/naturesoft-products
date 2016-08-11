@@ -7,7 +7,7 @@ module Naturesoft
         
         # add top breadcrumb
         def default_breadcrumb
-          add_breadcrumb "Products", naturesoft_products.admin_manufacturers_path
+          add_breadcrumb "Product", naturesoft_products.admin_manufacturers_path
           add_breadcrumb "Manufacturers", naturesoft_products.admin_manufacturers_path
         end
         

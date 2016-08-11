@@ -1,12 +1,13 @@
 module Naturesoft::Products
-  class Manufacturer < ApplicationRecord
+  class Product < ApplicationRecord
+    belongs_to :manufacturer
     belongs_to :user
-    mount_uploader :image_url, Naturesoft::Products::ProductUploader
+    has_and_belongs_to_many :categories
     
     def self.sort_by
       [
-        ["Name","naturesoft_products_manufacturers.name"],
-        ["Created At","naturesoft_products_manufacturers.created_at"]
+        ["Name","naturesoft_products_products.name"],
+        ["Created At","naturesoft_products_products.created_at"]
       ]
     end
     
@@ -24,12 +25,12 @@ module Naturesoft::Products
       #Search keyword filter
       if params[:keyword].present?
         params[:keyword].split(" ").each do |k|
-          records = records.where("LOWER(CONCAT(naturesoft_products_manufacturers.name)) LIKE ?", "%#{k.strip.downcase}%") if k.strip.present?
+          records = records.where("LOWER(CONCAT(naturesoft_products_products.name)) LIKE ?", "%#{k.strip.downcase}%") if k.strip.present?
         end
       end
       
       # for sorting
-      sort_by = params[:sort_by].present? ? params[:sort_by] : "naturesoft_products_manufacturers.name"
+      sort_by = params[:sort_by].present? ? params[:sort_by] : "naturesoft_products_products.name"
       sort_orders = params[:sort_orders].present? ? params[:sort_orders] : "asc"
       records = records.order("#{sort_by} #{sort_orders}")
       

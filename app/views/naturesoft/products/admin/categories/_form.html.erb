@@ -1,0 +1,70 @@
+<% if category.errors.any? %>
+  <div class="alert alert-warning alert-bordered">
+    <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+    <div id="error_explanation">
+      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+  
+      <ul>
+      <% category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for([naturesoft_products, :admin, category], html: {class: "form-horizontal validate"}) do |f| %>
+    
+    <div class="form-group">
+        <label class="col-md-2 control-label" ><%= t(:name) %> <span class='text-danger'>*</span></label>
+        <div class="col-md-10">
+            <%= f.text_field :name, class: "form-control" %>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label class="col-md-2 control-label" ><%= t(:description) %> <!--<span class='text-danger'>*</span>--></label>
+        <div class="col-md-10">
+            <%= f.text_area :description, rows: "5", cols: "5", class: "form-control" %>
+        </div>
+    </div>
+        
+    <div class="form-group">
+      <label class="col-md-2 control-label" ><%= t(:related_categories) %> <span class='text-danger'>*</span></label>
+        <div class="col-md-10">
+            <div class="row-fluid">
+                <div class="radio">
+                    <%= radio_button_tag 'parent_id', "", category.parent.empty?, id: "category_none", class: "styled-level-1" %>
+                    <label for="category_none"><%= t(:none) %></label>      
+                </div>
+            </div>
+            <% Naturesoft::Products::Category.all.each do |cat| %>
+                <% if cat.level == 1 %>
+                    <% if category.id != cat.id %>
+                        <div class="row-fluid">
+                            <div class="radio">
+                                <%= radio_button_tag 'parent_id', cat.id, category.parent.include?(cat), id: "category_#{cat.id}", class: "styled-level-1" %>
+                                <label for="category_<%= cat.id %>"><%= cat.name %></label>
+                            </div>
+                        </div>
+                    <% end %>
+                    <% cat.children.each do |child_1| %>                        
+                        <% if category.id != child_1.id %>
+                            <div class="row-fluid" style="margin-left: 30px">
+                                <div class="radio">
+                                    <%= radio_button_tag 'parent_id', child_1.id, category.parent.include?(child_1), :id => "category_#{child_1.id}", class: "styled-level-2" %>
+                                    <label for="category_<%= child_1.id %>"><%= child_1.name %></label>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <%= button_tag "#{t(:save)} <i class=\"icon-plus22 position-right\"></i>".html_safe, class: "btn btn-primary"%>
+    </div>
+    
+<% end %>

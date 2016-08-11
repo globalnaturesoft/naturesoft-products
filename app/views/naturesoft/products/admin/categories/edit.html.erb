@@ -1,0 +1,21 @@
+<% title t(:edit_product_category) + ": " + @category.name %>
+
+<!-- Horizontal form options -->
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- Basic layout-->
+        <div class="panel panel-flat">
+            <div class="panel-heading">
+                <h5 class="panel-title"><%= t(:edit_product_category) %></h5>
+            </div>
+            
+            <div class="panel-body">
+                <%= render 'form', category: @category %>
+            </div>
+
+        </div>
+        <!-- /basic layout -->
+    </div>
+</div>
+<!-- /horizontal form options -->
