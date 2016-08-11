@@ -2,7 +2,7 @@ module Naturesoft
   module Products
     module Admin
       class ProductsController < Naturesoft::Admin::AdminController
-        before_action :set_product, only: [:show, :edit, :update, :destroy]
+        before_action :set_product, only: [:show, :edit, :update, :enable, :disable, :destroy]
         before_action :default_breadcrumb
         
         # add top breadcrumb
