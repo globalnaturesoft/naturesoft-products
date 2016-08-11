@@ -23,11 +23,17 @@ module Naturesoft
         # GET /products/new
         def new
           @product = Product.new
+          10.times do
+            @product.images.build
+          end
           add_breadcrumb "New Product", nil,  class: "active"
         end
     
         # GET /products/1/edit
         def edit
+          (10-@product.images.count).times do
+            @product.images.build
+          end
           add_breadcrumb "Edit Product", nil,  class: "active"
         end
     
@@ -92,7 +98,7 @@ module Naturesoft
     
           # Only allow a trusted parameter "white list" through.
           def product_params
-            params.fetch(:product, {}).permit(:name, :code, :new_price, :quantity, :unit, :discount, :old_price, :manufacturer_id, :short_description, :description)
+            params.fetch(:product, {}).permit(:name, :code, :new_price, :quantity, :unit, :discount, :old_price, :manufacturer_id, :short_description, :description, images_attributes: [:id, :image_url, :is_main, :_destroy])
           end
       end
     end

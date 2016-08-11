@@ -85,22 +85,29 @@
 
             </div>
             <div class="tab-pane has-padding" id="control-tab2">
-              <% number = 1 %>
-              <% (1..10).each do |item| %>
-              <div class="form-group">
-                <label class="col-md-2 control-label" ><%= t(:image) %> <%= number %> <span class='text-danger'>*</span></label>
-                <div class="media no-margin-top col-md-10">
-                  <div class="media-left">
-                    <img src="" style="width: 60px; height: 60px; border-radius: 2px;" alt="">
+              <% index = 0 %>
+              <%= f.fields_for :images do |ff| %>
+                  <% g = product.images[index] %>
+                  <%= ff.hidden_field :id %>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:image) %> <%= index + 1 %> <span class='text-danger'>*</span></label>
+                    <div class="media no-margin-top col-md-8">
+                      <div class="media-left">
+                        <img src="<%= image_src(g.image_url) %>" style="width: 60px; height: 60px; border-radius: 2px;" alt="">
+                      </div>
+                
+                      <div class="media-body">
+                        <%= ff.file_field :image_url, class: "file-styled" %>
+                        <span class="help-block">Accepted formats: gif, png, jpg.</span>
+                      </div>
+                    </div>
+                    <div class="col-md-2" >
+                      <%= ff.check_box :_destroy %>
+                      <%= ff.label :_destroy, 'Remove' %>
+                    </div>
                   </div>
-            
-                  <div class="media-body">
-                    <input type="file" name="" class="file-styled">
-                    <span class="help-block">Accepted formats: gif, png, jpg.</span>
-                  </div>
-                </div>
-              </div>
-              <% number += 1 %>
+                  
+                  <% index += 1 %>
               <% end %>
             </div>
             <div class="tab-pane has-padding" id="control-tab3">

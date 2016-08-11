@@ -1,8 +1,11 @@
 module Naturesoft::Products
-  class Product < ApplicationRecord
+  class Product < ApplicationRecord		
+		validates :name, :code, :new_price, :quantity, :unit, presence: true
     belongs_to :manufacturer
     belongs_to :user
     has_and_belongs_to_many :categories
+    has_many :images, dependent: :destroy
+    accepts_nested_attributes_for :images, :reject_if => lambda { |a| a[:image_url].blank? && a[:id].blank? }, :allow_destroy => true
     
     def self.sort_by
       [
