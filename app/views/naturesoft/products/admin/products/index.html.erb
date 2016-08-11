@@ -43,6 +43,7 @@
                     <tr class="bg-teal-800">
                         <th><%= t(:image) %></th>
                         <th><%= t(:name) %></th>
+                        <th><%= t(:price) %></th>
                         <th><%= t(:created_at) %></th>
                         <th class="text-center"><%= t(:actions) %></th>
                     </tr>
@@ -55,6 +56,7 @@
                               <%= item.name %><br>
                               <%= display_status(item.status) %>
                             </td>
+                            <td><%= format_number(item.new_price) %></td>
                             <td><%= item.created_at.strftime("%d/%m/%Y") %></td>
                             <td class="text-center">
                               <div class="btn-group">

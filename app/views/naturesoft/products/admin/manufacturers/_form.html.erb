@@ -19,11 +19,11 @@
       <label class="col-md-2 control-label" ><%= t(:image) %> <span class='text-danger'>*</span></label>
       <div class="media no-margin-top col-md-10">
         <div class="media-left">
-          <img src="<%= image_src(manufacturer.image_url) %>" style="border-radius: 2px;" alt="">
+            <%= image_tag(image_src(manufacturer.image_url.system), class: "",  "preview-for": "manufacturer[image_url]") %>
         </div>
   
         <div class="media-body">
-          <input type="file" name="manufacturer[image_url]" class="file-styled">
+          <input type="file" name="manufacturer[image_url]" class="file-styled previewable">
           <span class="help-block">Accepted formats: gif, png, jpg.</span>
         </div>
       </div>
