@@ -18,6 +18,7 @@
      <div class="tabbable tab-content-bordered">
         <ul class="nav nav-tabs bg-primary">
             <li class="active"><a href="#control-tab1" data-toggle="tab"><%= t(:infomations) %></a></li>
+            <li><a href="#description-tab" data-toggle="tab"><%= t(:description) %> </a></li>
             <li><a href="#control-tab2" data-toggle="tab"><%= t(:images) %> </a></li>
             <li><a href="#control-tab3" data-toggle="tab"><%= t(:discount) %> </a></li>
         </ul>
@@ -84,6 +85,15 @@
                 </div>
 
             </div>
+
+            <div class="tab-pane has-padding" id="description-tab">
+              <div class="form-group">
+                <div class="col-md-12">
+                  <%= f.text_area :description, rows: "4", cols: "4", class: "editor" %>
+                </div>
+              </div>
+            </div>
+                 
             <div class="tab-pane has-padding addable-form" data-sample="image-form" id="control-tab2">
               <div class="addable-container">
                 <% product.images.each_with_index do |image,index| %>
@@ -114,21 +124,16 @@
                 </div>
             </div>
         </div>
-      </div><br />
-      <div class="form-group">
-        <div class="col-md-12">
-          <%= f.text_area :description, rows: "4", cols: "4", id: "editor-full" %>
-        </div>
       </div>
       <br />            
-    <div class="text-right">
-        <%= button_tag "#{t(:save)} <i class=\"icon-plus22 position-right\"></i>".html_safe, class: "btn btn-primary"%>
-    </div>
+      <div class="text-right">
+          <%= button_tag "#{t(:save)} <i class=\"icon-plus22 position-right\"></i>".html_safe, class: "btn btn-primary"%>
+      </div>
     
 <% end %>
+
 <!-- thumbnail size sample form -->
 <div class="image-form hide">
   <%= render 'image_form', item: Naturesoft::Products::Image.new, index: "<<index>>" %>
 </div>
 <!--/thumbnail size sample form -->
-<%= render "editor_tinymce" %>
