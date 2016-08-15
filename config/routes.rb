@@ -4,18 +4,21 @@ Naturesoft::Products::Engine.routes.draw do
       collection do
         put "enable"
         put "disable"
+        delete "delete"
       end
     end
     resources :categories do
       collection do
         put "enable"
         put "disable"
+        delete "delete"
       end
     end
     resources :manufacturers do
       collection do
         put "enable"
         put "disable"
+        delete "delete"
       end
     end
   end

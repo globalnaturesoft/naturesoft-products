@@ -68,6 +68,13 @@ module Naturesoft
           @manufacturer.disable
           render text: 'Manufacturer was successfully inactive.'
         end
+        
+        # DELETE /manufacturers/delete?ids=1,2,3
+        def delete
+          @manufacturers = Manufacturer.where(id: params[:ids].split(","))
+          @manufacturers.destroy_all
+          render text: 'Manufacturer(s) was successfully destroyed.'
+        end
     
         private
           # Use callbacks to share common setup or constraints between actions.

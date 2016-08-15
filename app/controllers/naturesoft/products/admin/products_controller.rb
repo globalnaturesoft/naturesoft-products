@@ -83,6 +83,13 @@ module Naturesoft
           @product.disable
           render text: 'Product was successfully inactive.'
         end
+        
+        # DELETE /products/delete?ids=1,2,3
+        def delete
+          @products = Product.where(id: params[:ids].split(","))
+          @products.destroy_all
+          render text: 'Product(s) was successfully destroyed.'
+        end
     
         private
           # Use callbacks to share common setup or constraints between actions.

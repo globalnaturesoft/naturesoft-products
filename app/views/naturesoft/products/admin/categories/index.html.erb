@@ -34,6 +34,19 @@
             </div>
         </div>
     </div>
+            
+    <div class="btn-group list_actions mb-10 hide">
+        <button type="button" class="btn btn-xs btn-info dropdown-toggle" data-toggle="dropdown">
+            Actions <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">											
+            <li>
+                <a href="" data-href="<%= naturesoft_products.delete_admin_categories_path %>" data-confirm="Are you sure!" data-method="DELETE">
+                    <i class="icon-enter"></i> Delete
+                </a>
+            </li>            
+        </ul>
+    </div>
                 
     <!-- Basic datatable -->
     <div class="panel panel-flat">
@@ -41,6 +54,9 @@
             <table class="table">
                 <thead>
                     <tr class="bg-teal-800">
+                        <th width="1%" class="check_all_list">
+                            <input type="checkbox" class="styled">
+                        </th>
                         <th><%= t(:title) %></th>
                         <th><%= t(:description) %></th>
                         <th><%= t(:created_at) %></th>
@@ -52,6 +68,12 @@
                     <% if item.parent.count == 0 %>
                         <% item.update_level(1) %>
                         <tr<% if item.status == "active" %> class="success"<% else %> class="warning"<% end %>>
+                            <td width="1%">
+                                <input type="checkbox" class="node styled"
+                                    name="ids[]"
+                                    value="<%= item.id %>"
+                                />
+                            </td>
                             <td class="kq_search">
                               <strong><%= link_to item.name, naturesoft_products.edit_admin_category_path(item) %></strong><br>
                               <%= display_status(item.status) %>
@@ -85,6 +107,12 @@
                         <% item.children.each do |child_1| %>
                             <% child_1.update_level(2) %>
                             <tr<% if child_1.status == "active" %> class="success"<% else %> class="warning"<% end %>>
+                                <td width="1%">
+                                    <input type="checkbox" class="node styled"
+                                        name="ids[]"
+                                        value="<%= child_1.id %>"
+                                    />
+                                </td>
                                 <td class="kq_search">
                                   <strong>--- <%= link_to child_1.name, naturesoft_products.edit_admin_category_path(child_1) %></strong><br>
                                   <%= display_status(child_1.status) %>
@@ -118,6 +146,12 @@
                             <% child_1.children.each do |child_2| %>
                               <% child_2.update_level(3) %>
                                 <tr<% if child_2.status == "active" %> class="success"<% else %> class="warning"<% end %>>
+                                  <td width="1%">
+                                      <input type="checkbox" class="node styled"
+                                          name="ids[]"
+                                          value="<%= child_2.id %>"
+                                      />
+                                  </td>
                                   <td class="kq_search">
                                     <strong>--------- <%= link_to child_2.name, naturesoft_products.edit_admin_category_path(child_2) %></strong><br>
                                     <%= display_status(child_2.status) %>

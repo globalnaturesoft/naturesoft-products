@@ -76,6 +76,13 @@ module Naturesoft
           @category.disable
           render text: 'Category was successfully inactive.'
         end
+        
+        # DELETE /categories/delete?ids=1,2,3
+        def delete
+          @categories = Category.where(id: params[:ids].split(","))
+          @categories.destroy_all
+          render text: 'Categories(s) was successfully destroyed.'
+        end
     
         private
           # Use callbacks to share common setup or constraints between actions.
