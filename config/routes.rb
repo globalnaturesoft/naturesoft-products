@@ -1,5 +1,5 @@
 Naturesoft::Products::Engine.routes.draw do
-  namespace :admin, module: "admin" do
+  namespace :admin, module: "admin", path: "admin/products" do
     resources :products do
       collection do
         put "enable"

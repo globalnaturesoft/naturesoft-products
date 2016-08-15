@@ -84,31 +84,19 @@
                 </div>
 
             </div>
-            <div class="tab-pane has-padding" id="control-tab2">
-              <% index = 0 %>
-              <%= f.fields_for :images do |ff| %>
-                  <% g = product.images[index] %>
-                  <%= ff.hidden_field :id %>
-                  <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:image) %> <%= index + 1 %> <span class='text-danger'>*</span></label>
-                    <div class="media no-margin-top col-md-8">
-                      <div class="media-left">
-                        <img src="<%= image_src(g.image_url) %>" style="width: 60px; height: 60px; border-radius: 2px;" alt="">
-                      </div>
-                
-                      <div class="media-body">
-                        <%= ff.file_field :image_url, class: "file-styled" %>
-                        <span class="help-block">Accepted formats: gif, png, jpg.</span>
-                      </div>
-                    </div>
-                    <div class="col-md-2" >
-                      <%= ff.check_box :_destroy %>
-                      <%= ff.label :_destroy, 'Remove' %>
-                    </div>
+            <div class="tab-pane has-padding addable-form" data-sample="image-form" id="control-tab2">
+              <div class="addable-container">
+                <% product.images.each_with_index do |image,index| %>
+                  <%= render "image_form", item: image, index: index %>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="text-left">
+                    <a href="#add" class="btn btn-info addable-add"><%= t(:add_image) %> <i class="icon-plus2 position-center"></i></a>
                   </div>
-                  
-                  <% index += 1 %>
-              <% end %>
+                </div>
+              </div>
             </div>
             <div class="tab-pane has-padding" id="control-tab3">
                 <div class="form-group">
@@ -138,5 +126,9 @@
     </div>
     
 <% end %>
-
+<!-- thumbnail size sample form -->
+<div class="image-form hide">
+  <%= render 'image_form', item: Naturesoft::Products::Image.new, index: "<<index>>" %>
+</div>
+<!--/thumbnail size sample form -->
 <%= render "editor_tinymce" %>

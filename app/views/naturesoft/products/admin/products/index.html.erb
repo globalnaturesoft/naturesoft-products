@@ -51,7 +51,9 @@
                 <tbody>
                     <% @products.each do |item| %>
                         <tr<% if item.status == "active" %> class="success"<% else %> class="warning"<% end %>>
-                            <td></td>
+                            <td>
+                                <%= image_tag(image_src(item.main_image.image_url.system), class: "img-rounded img-preview") %>
+                            </td>
                             <td class="kq_search">
                               <%= item.name %><br>
                               <%= display_status(item.status) %>

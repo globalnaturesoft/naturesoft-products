@@ -4,8 +4,10 @@ module Naturesoft::Products
     belongs_to :manufacturer
     belongs_to :user
     has_and_belongs_to_many :categories
-    has_many :images, dependent: :destroy
-    accepts_nested_attributes_for :images, :reject_if => lambda { |a| a[:image_url].blank? && a[:id].blank? }, :allow_destroy => true
+    has_many :images, dependent: :destroy, :inverse_of => :product
+    accepts_nested_attributes_for :images,
+				:reject_if => lambda { |a| a[:image_url].blank? && a[:id].blank? },
+				:allow_destroy => true
     
     def self.sort_by
       [
@@ -47,6 +49,14 @@ module Naturesoft::Products
     
     def disable
 			update_columns(status: "inactive")
+		end
+    
+    # get newest default image
+    def main_image
+			return Image.new if images.empty?
+			
+			img = images.where(is_main: true).last
+			return img.nil? ? images.last : img
 		end
     
   end
