@@ -1,7 +1,7 @@
-<% title t(:products) %>
+<% title t(:labels) %>
 
 <div class="page_actions">
-    <%= link_to "#{t(:new_product)} <i class=\"icon-plus22 position-right\"></i>".html_safe, naturesoft_products.new_admin_product_path, class: 'btn btn-primary' %>
+    <%= link_to "#{t(:new_label)} <i class=\"icon-plus22 position-right\"></i>".html_safe, naturesoft_products.new_admin_label_path, class: 'btn btn-primary' %>
 </div>
 <br />
 
@@ -13,13 +13,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label><%= t(:sort_by) %></label>
-                        <%= select_tag(:sort_by, options_for_select(Naturesoft::Products::Product.sort_by, :selected => params[:sort_by]), class: "select2") %>
+                        <%= select_tag(:sort_by, options_for_select(Naturesoft::Products::Label.sort_by, :selected => params[:sort_by]), class: "select2") %>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label><%= t(:sort_orders) %></label>
-                        <%= select_tag(:sort_orders, options_for_select(Naturesoft::Products::Product.sort_orders, :selected => params[:sort_orders]), class: "select2") %>
+                        <%= select_tag(:sort_orders, options_for_select(Naturesoft::Products::Label.sort_orders, :selected => params[:sort_orders]), class: "select2") %>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -41,7 +41,7 @@
         </button>
         <ul class="dropdown-menu">											
             <li>
-                <a href="" data-href="<%= naturesoft_products.delete_admin_products_path %>" data-confirm="Are you sure!" data-method="DELETE">
+                <a href="" data-href="<%= naturesoft_products.delete_admin_labels_path %>" data-confirm="Are you sure!" data-method="DELETE">
                     <i class="icon-enter"></i> Delete
                 </a>
             </li>            
@@ -57,15 +57,13 @@
                         <th width="1%" class="check_all_list">
                             <input type="checkbox" class="styled">
                         </th>
-                        <th><%= t(:image) %></th>
                         <th><%= t(:name) %></th>
-                        <th><%= t(:price) %></th>
                         <th><%= t(:created_at) %></th>
-                        <th class="text-center"><%= t(:actions) %></th>
+                        <th class="text-right"><%= t(:actions) %></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% @products.each do |item| %>
+                    <% @labels.each do |item| %>
                         <tr<% if item.status == "active" %> class="success"<% else %> class="warning"<% end %>>
                             <td width="1%">
                                 <input type="checkbox" class="node styled"
@@ -73,32 +71,28 @@
                                     value="<%= item.id %>"
                                 />
                             </td>
-                            <td>
-                                <a href="<%= naturesoft_products.edit_admin_product_path(item) %>"><%= image_tag(image_src(item.main_image.image_url.system), class: "img-rounded img-preview") %></a>
-                            </td>
                             <td class="kq_search">
-                              <%= item.name %><br>
+                              <strong><%= link_to item.name, naturesoft_products.edit_admin_label_path(item) %></strong><br>
                               <%= display_status(item.status) %>
                             </td>
-                            <td><%= format_number(item.new_price) %></td>
                             <td><%= item.created_at.strftime("%d/%m/%Y") %></td>
-                            <td class="text-center">
+                            <td class="text-right">
                               <div class="btn-group">
-                                <%= link_to '<i class="icon-pencil"></i>'.html_safe, naturesoft_products.edit_admin_product_path(item), class: "btn bg-teal btn-icon btn-xs", title: item.name %>
+                                <%= link_to '<i class="icon-pencil"></i>'.html_safe, naturesoft_products.edit_admin_label_path(item), class: "btn bg-teal btn-icon btn-xs", title: item.name %>
                                 <button type="button" class="btn bg-teal dropdown-toggle btn-xs" data-toggle="dropdown"><span class="caret"></span></button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <% if item.status == "active" %>
                                     <li>
-                                        <%= link_to '<i class="icon-lock4"></i> '.html_safe + t(:inactive), naturesoft_products.disable_admin_products_path(id: item.id), method: :put %>
+                                        <%= link_to '<i class="icon-lock4"></i> '.html_safe + t(:inactive), naturesoft_products.disable_admin_labels_path(id: item.id), method: :put %>
                                     </li>
                                     <% end %>
                                     <% if item.status == "inactive" %>
                                     <li>
-                                        <%= link_to '<i class="icon-unlocked"></i> '.html_safe + t(:active), naturesoft_products.enable_admin_products_path(id: item.id), method: :put %>
+                                        <%= link_to '<i class="icon-unlocked"></i> '.html_safe + t(:active), naturesoft_products.enable_admin_labels_path(id: item.id), method: :put %>
                                     </li>
                                     <% end %>
                                     <li>
-                                        <%= link_to '<i class="icon-cross2"></i> '.html_safe + t(:delete), naturesoft_products.admin_product_path(item), method: :delete, data: {confirm: 'Are you sure?'} %>
+                                        <%= link_to '<i class="icon-cross2"></i> '.html_safe + t(:delete), naturesoft_products.admin_label_path(item), method: :delete, data: {confirm: 'Are you sure?'} %>
                                     </li>
                                   </ul>
                                 </div>
@@ -109,9 +103,9 @@
             </table>
             <div class="dataTables_wrapper no-footer">
                 <div class="datatable-footer showed">
-                    <div class="dataTables_info" ><%= page_entries_info @products %></div>
+                    <div class="dataTables_info" ><%= page_entries_info @labels %></div>
                     <div class="dataTables_paginate paging_simple_numbers">
-                        <%= will_paginate @products, previous_label: '←', next_label: '→', renderer: BootstrapPagination::Rails %>
+                        <%= will_paginate @labels, previous_label: '←', next_label: '→', renderer: BootstrapPagination::Rails %>
                     </div>
                 </div>
             </div>

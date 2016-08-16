@@ -4,6 +4,7 @@ module Naturesoft::Products
     belongs_to :manufacturer
     belongs_to :user
     has_and_belongs_to_many :categories
+    has_and_belongs_to_many :labels
     has_many :images, dependent: :destroy, :inverse_of => :product
     accepts_nested_attributes_for :images,
 				:reject_if => lambda { |a| a[:image_url].blank? && a[:id].blank? },

@@ -73,7 +73,7 @@
                                 />
                             </td>
                             <td>
-                              <%= image_tag image_src(item.image_url), class: "img-rounded img-preview" %>
+                              <a href="<%= naturesoft_products.edit_admin_manufacturer_path(item) %>"><%= image_tag image_src(item.image_url), class: "img-rounded img-preview" %></a>
                             </td>
                             <td class="kq_search">
                               <%= item.name %><br>
