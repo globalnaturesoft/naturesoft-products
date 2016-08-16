@@ -36,10 +36,17 @@ module Naturesoft
           @product = Product.new(product_params)
           @product.user = current_user
           @product.categories.clear
+          @product.labels.clear
           
           if params[:category_ids].present?
             params[:category_ids].each do |id|      
               @product.categories << Category.find(id)
+            end
+          end
+          
+          if params[:label_ids].present?
+            params[:label_ids].each do |id|      
+              @product.labels << Label.find(id)
             end
           end
     
@@ -53,10 +60,17 @@ module Naturesoft
         # PATCH/PUT /products/1
         def update
           @product.categories.clear
+          @product.labels.clear
           
           if params[:category_ids].present?
             params[:category_ids].each do |id|      
               @product.categories << Category.find(id)
+            end
+          end
+          
+          if params[:label_ids].present?
+            params[:label_ids].each do |id|      
+              @product.labels << Label.find(id)
             end
           end
           

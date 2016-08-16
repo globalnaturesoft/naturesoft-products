@@ -21,5 +21,12 @@ Naturesoft::Products::Engine.routes.draw do
         delete "delete"
       end
     end
+    resources :labels do
+      collection do
+        put "enable"
+        put "disable"
+        delete "delete"
+      end
+    end
   end
 end
