@@ -4,18 +4,24 @@ module Naturesoft::Products
 		
     belongs_to :user
     has_and_belongs_to_many :products
-    has_many :parent_categories, dependent: :destroy
-    has_many :parent, through: :parent_categories, source: :parent
-    has_many :child_categories, class_name: "ParentCategory", foreign_key: "parent_id", dependent: :destroy
-    has_many :children, through: :child_categories, source: :category
+    belongs_to :parent, class_name: "Category", optional: true
+    has_many :children, class_name: "Category", foreign_key: "parent_id"
     
-    def update_level(lvl)
-			self.level = lvl
-			self.save
+    after_save :update_level
+    
+    def update_level
+			level = 1
+			p = self.parent
+			while !p.nil? do
+				level += 1
+				p = p.parent
+			end
+			self.update_column(:level, level)
 		end
     
     def self.sort_by
       [
+			  ["Level","naturesoft_products_categories.level"],
         ["Name","naturesoft_products_categories.name"],
         ["Created At","naturesoft_products_categories.created_at"]
       ]
@@ -33,10 +39,16 @@ module Naturesoft::Products
       records = self.all
       
       #Search keyword filter
-      if params[:keyword].present?
-        params[:keyword].split(" ").each do |k|
+      if params[:keyword].present? or params[:q].present?
+				kws = params[:keyword].present? ? params[:keyword] : params[:q]
+        kws.split(" ").each do |k|
           records = records.where("LOWER(CONCAT(naturesoft_products_categories.name)) LIKE ?", "%#{k.strip.downcase}%") if k.strip.present?
         end
+      end
+      
+      # Parent category
+      if params[:parent_id].present?
+				records = records.where(parent_id: params[:parent_id])
       end
       
       # for sorting
@@ -54,6 +66,27 @@ module Naturesoft::Products
     
     def disable
 			update_columns(status: "inactive")
+		end
+    
+    # display name with parent
+    def full_name
+			names = [self.name]
+			p = self.parent
+			while !p.nil? do
+				names << p.name
+				p = p.parent
+			end
+			names.reverse.join(" >> ")
+		end
+    
+    # data for select2 ajax
+    def self.select2(params)
+			items = self.search(params).order("level")
+			if params[:excluded].present?
+				items = items.where.not(id: params[:excluded].split(","))
+			end
+			items = items.map { |c| {"id" => c.id, "text" => c.full_name} }
+			result = {"items" => items}
 		end
     
   end
