@@ -4,6 +4,7 @@ class CreateNaturesoftProductsCategories < ActiveRecord::Migration[5.0]
       t.string :name
       t.text :description
       t.integer :level
+      t.integer :parent_id
       t.string :status, default: "active"
       t.references :user, index: true, references: :naturesoft_users
 
