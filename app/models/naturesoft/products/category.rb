@@ -85,8 +85,9 @@ module Naturesoft::Products
 			if params[:excluded].present?
 				items = items.where.not(id: params[:excluded].split(","))
 			end
-			items = items.map { |c| {"id" => c.id, "text" => c.full_name} }
-			result = {"items" => items}
+			options = [{"id" => "", "text" => "choose"}]
+			options += items.map { |c| {"id" => c.id, "text" => c.full_name} }
+			result = {"items" => options}
 		end
     
   end
