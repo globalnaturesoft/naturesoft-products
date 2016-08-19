@@ -13,7 +13,7 @@ module Naturesoft
     
         # GET /products
         def index
-          @products = Product.search(params).paginate(:page => params[:page], :per_page => 10)
+          @products = Product.search(params).paginate(:page => params[:page], :per_page => Naturesoft::Option.get("products", "items_per_page"))
         end
     
         # GET /products/1

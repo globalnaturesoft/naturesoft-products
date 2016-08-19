@@ -13,7 +13,7 @@ module Naturesoft
     
         # GET /categories
         def index
-          @categories = Category.search(params).paginate(:page => params[:page], :per_page => 100)
+          @categories = Category.search(params).paginate(:page => params[:page], :per_page => Naturesoft::Option.get("products", "categories_items_per_page"))
         end
     
         # GET /categories/1

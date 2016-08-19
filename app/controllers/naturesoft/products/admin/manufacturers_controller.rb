@@ -13,7 +13,7 @@ module Naturesoft
         
         # GET /manufacturers
         def index
-          @manufacturers = Manufacturer.search(params).paginate(:page => params[:page], :per_page => 10)
+          @manufacturers = Manufacturer.search(params).paginate(:page => params[:page], :per_page => Naturesoft::Option.get("products", "manufacturers_items_per_page"))
         end
     
         # GET /manufacturers/1
