@@ -34,7 +34,8 @@
         <div class="col-md-10">
             <%= select_tag("category[parent_id]",
               nil,
-              {class: "select2-ajax",
+              {
+                class: "select2-ajax",
                 "data-url": select2_admin_categories_path,
                 "data-excluded": category.id,
                 "value": category.parent.present? ? category.parent.id : "",
