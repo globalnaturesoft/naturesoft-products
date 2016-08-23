@@ -123,7 +123,8 @@ module Naturesoft
                                               :manufacturer_id,
                                               :short_description,
                                               :description,
-                                              images_attributes: [:id, :title, :image_url, :is_main, :_destroy])
+                                              images_attributes: [:id, :title, :image_url, :is_main, :_destroy],
+                                              product_properties_attributes: [:id, :value, :price, :property_id, :_destroy])
           end
       end
     end

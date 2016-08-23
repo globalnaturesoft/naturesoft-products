@@ -1,4 +1,6 @@
 en:
   # Modular Articles -------------------------------------
   placeholder_labels: "Choose labels...."
+  placeholder_properties: "Choose properties...."
+  placeholder_categories: "Choose categories...."
   # Modular Articles-------------------------------------

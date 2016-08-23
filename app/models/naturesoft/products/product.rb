@@ -5,9 +5,14 @@ module Naturesoft::Products
     belongs_to :user
     has_and_belongs_to_many :categories
     has_and_belongs_to_many :labels
+    has_and_belongs_to_many :properties
     has_many :images, dependent: :destroy, :inverse_of => :product
     accepts_nested_attributes_for :images,
 				:reject_if => lambda { |a| a[:image_url].blank? && a[:id].blank? },
+				:allow_destroy => true
+		has_many :product_properties, dependent: :destroy, :inverse_of => :product
+		accepts_nested_attributes_for :product_properties,
+				:reject_if => lambda { |a| a[:value].blank? && a[:price].blank? && a[:property_id].blank? },
 				:allow_destroy => true
     
     def self.sort_by

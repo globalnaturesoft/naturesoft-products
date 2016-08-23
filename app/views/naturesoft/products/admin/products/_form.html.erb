@@ -21,6 +21,7 @@
             <li><a href="#description-tab" data-toggle="tab"><%= t(:description) %> </a></li>
             <li><a href="#control-tab2" data-toggle="tab"><%= t(:images) %> </a></li>
             <li><a href="#control-tab3" data-toggle="tab"><%= t(:discount) %> </a></li>
+            <li><a href="#control-tab4" data-toggle="tab"><%= t(:property) %> </a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane has-padding active" id="control-tab1">
@@ -69,7 +70,7 @@
                 <div class="form-group field">
                     <label class="col-md-2 control-label" ><%= t(:category) %> <span class='text-danger'>*</span></label>
                     <div class="col-md-10">
-                        <select name="category_ids[]" id="category_ids" class="multi-select2-article-categories" data-placeholder="<%= t(:placeholder_categories) %>..." multiple="multiple">
+                        <select name="category_ids[]" id="category_ids" class="multi-select2-categories" data-placeholder="<%= t(:placeholder_categories) %>..." multiple="multiple">
                             <% Naturesoft::Products::Category.all.each do |item| %>
                                 <option <%= "selected" if product.categories.include?(item) %> value="<%= item.id %>"><%= item.full_name %></option>
                             <% end %>
@@ -119,6 +120,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="tab-pane has-padding" id="control-tab3">
                 <div class="form-group">
                     <label class="col-md-2 control-label" ><%= t(:discount) %> <span class='text-danger'>*</span></label>
@@ -134,6 +136,21 @@
                     </div>
                 </div>
             </div>
+                
+            <div class="tab-pane has-padding addable-form" data-sample="product-property" id="control-tab4">
+              <div class="addable-container">
+                <% product.product_properties.each_with_index do |property,index| %>
+                  <%= render "product_property", item: property, index: index %>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="text-left">
+                    <a href="#add" class="btn btn-info addable-add"><%= t(:add_property) %> <i class="icon-plus2 position-center"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
       <br />            
@@ -148,3 +165,9 @@
   <%= render 'image_form', item: Naturesoft::Products::Image.new, index: "<<index>>" %>
 </div>
 <!--/thumbnail size sample form -->
+
+<!-- choose properties for product -->
+<div class="product-property hide">
+  <%= render 'product_property', item: Naturesoft::Products::ProductProperty.new, index: "<<index>>" %>
+</div>
+<!--/choose properties for product -->

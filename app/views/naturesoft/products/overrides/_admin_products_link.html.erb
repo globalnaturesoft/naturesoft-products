@@ -10,6 +10,9 @@
       <li<% if["naturesoft/products/admin/manufacturers"].include?(params[:controller]) %>class="active"<% end %>>
         <%= link_to 'Manufacturers', naturesoft_products.admin_manufacturers_path %>
       </li>
+      <li<% if["naturesoft/products/admin/properties"].include?(params[:controller]) %>class="active"<% end %>>
+        <%= link_to 'Properties', naturesoft_products.admin_properties_path %>
+      </li>
       <li<% if["naturesoft/products/admin/labels"].include?(params[:controller]) %>class="active"<% end %>>
         <%= link_to 'Labels', naturesoft_products.admin_labels_path %>
       </li>

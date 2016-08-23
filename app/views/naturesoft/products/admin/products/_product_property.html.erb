@@ -1,0 +1,44 @@
+<%= hidden_field_tag "product[product_properties_attributes]["+index.to_s+"][id]", item.id %>
+<div class="row addable-row" data-index="<%= index %>">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="col-md-4 control-label" ><%= t(:property) %> <span class='text-danger'>*</span></label>
+      <div class="col-md-8">
+        <select name="product[product_properties_attributes][<%= index %>][property_id]" class="select2" data-placeholder="<%= t(:placeholder_labels) %>...">
+            <option><%= t(:none) %></option>
+            <% Naturesoft::Products::Property.all.each do |pt| %>
+                <option<%= ' selected' if pt.id == item.id %> value="<%= pt.id %>"><%= pt.name %></option>
+            <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="col-md-4 control-label" ><%= t(:value) %> <span class='text-danger'>*</span></label>
+      <div class="col-md-8">
+        <input value="<%= item.value %>" class="form-control required" name="product[product_properties_attributes][<%= index %>][value]" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label class="col-md-4 control-label" ><%= t(:price) %> <span class='text-danger'>*</span></label>
+      <div class="col-md-8">
+        <input value="<%= item.price %>" class="form-control number_input required" name="product[product_properties_attributes][<%= index %>][price]" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1 hide">
+    <div class="form-group">
+      <div><%= t(:remove) %> </div>
+      <div class="">
+        <input type="checkbox" value="true" class="checkbox required delete" name="product[product_properties_attributes][<%= index %>][_destroy]" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <a href="#add" class="btn btn-danger addable-nested-remove"><i class="icon-cross2"></i></a>
+  </div>
+  <hr style="clear: both" />
+</div>
