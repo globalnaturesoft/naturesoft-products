@@ -7,7 +7,7 @@
         <select name="product[product_properties_attributes][<%= index %>][property_id]" class="select2" data-placeholder="<%= t(:placeholder_labels) %>...">
             <option><%= t(:none) %></option>
             <% Naturesoft::Products::Property.all.each do |pt| %>
-                <option<%= ' selected' if pt.id == item.id %> value="<%= pt.id %>"><%= pt.name %></option>
+                <option<%= ' selected' if pt.id == item.property_id %> value="<%= pt.id %>"><%= pt.name %></option>
             <% end %>
         </select>
       </div>
