@@ -64,7 +64,7 @@
                   <label class="col-md-2 control-label" ><%= t(:manufacturer) %> <span class='text-danger'>*</span></label>
                   <div class="col-md-10">
                     <div class="input-group">
-                        <%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2"}) %>
+                        <%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>
                         <span class="input-group-btn">
                           <a class="btn btn-info" href="#"><i class="icon-plus2"></i></a>
                         </span>
@@ -85,7 +85,7 @@
                           <%= select_tag("category_ids[]",
                             selected,
                             {
-                              class: "select2-ajax",
+                              class: "select2-ajax required",
                               include_blank: "none",
                               multiple: "multiple",
                               "data-url": select2_admin_categories_path,
