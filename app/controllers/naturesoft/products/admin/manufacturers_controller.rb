@@ -75,6 +75,11 @@ module Naturesoft
           @manufacturers.destroy_all
           render text: 'Manufacturer(s) was successfully destroyed.'
         end
+        
+        # GET /manufacturers/select2
+        def select2
+          render json: Manufacturer.select2(params)
+        end
     
         private
           # Use callbacks to share common setup or constraints between actions.

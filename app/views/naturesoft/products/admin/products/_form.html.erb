@@ -64,9 +64,19 @@
                   <label class="col-md-2 control-label" ><%= t(:manufacturer) %> <span class='text-danger'>*</span></label>
                   <div class="col-md-10">
                     <div class="input-group">
-                        <%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>
+                        <!--<%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>-->
+                        
+                        <% selected = options_for_select([product.manufacturer.name, product.manufacturer_id], product.manufacturer_id) if product.manufacturer.present? %>
+                        <%= select_tag("manufacturer_id",
+                          selected,
+                          {
+                            class: "select2-ajax required",
+                            include_blank: "none",
+                            "data-url": select2_admin_manufacturers_path,
+                          }
+                        ) %>
                         <span class="input-group-btn">
-                          <a class="btn btn-info" href="#"><i class="icon-plus2"></i></a>
+                          <a class="btn btn-info" href="<%= naturesoft_products.new_admin_manufacturer_path %>"><i class="icon-plus2"></i></a>
                         </span>
                     </div>
                   </div>
@@ -99,7 +109,7 @@
                 </div>
                     
                 <div class="form-group field">
-                    <label class="col-md-2 control-label" ><%= t(:label) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:label) %> </label>
                     <div class="col-md-10">
                         <select name="label_ids[]" id="label_ids" class="multi-select2-labels" data-placeholder="<%= t(:placeholder_labels) %>..." multiple="multiple">
                             <% Naturesoft::Products::Label.all.each do |item| %>
