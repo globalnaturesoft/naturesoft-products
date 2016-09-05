@@ -66,8 +66,8 @@
                     <div class="input-group">
                         <!--<%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>-->
                         
-                        <% selected = options_for_select([product.manufacturer.name, product.manufacturer_id], product.manufacturer_id) if product.manufacturer.present? %>
-                        <%= select_tag("manufacturer_id",
+                        <% selected = options_for_select([[product.manufacturer.name, product.manufacturer_id]], product.manufacturer_id) if product.manufacturer.present? %>
+                        <%= select_tag("product[manufacturer_id]",
                           selected,
                           {
                             class: "select2-ajax required",
