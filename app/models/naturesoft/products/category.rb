@@ -46,10 +46,11 @@ module Naturesoft::Products
         end
       end
       
-      # Parent category
-      if params[:parent_id].present?
-				records = records.where(parent_id: params[:parent_id])
-      end
+      # Parent menu
+      if params[:parent_id] != "all"
+				p_id = params[:parent_id].present? ? params[:parent_id] : nil
+				records = records.where(parent_id: p_id)
+			end
       
       # for sorting
       sort_by = params[:sort_by].present? ? params[:sort_by] : "naturesoft_products_categories.name"
