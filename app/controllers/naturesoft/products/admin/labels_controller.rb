@@ -75,6 +75,11 @@ module Naturesoft
           @labels.destroy_all
           render text: 'Label(s) was successfully destroyed.'
         end
+        
+        # GET /labels/select2
+        def select2
+          render json: Label.select2(params)
+        end
     
         private
           # Use callbacks to share common setup or constraints between actions.

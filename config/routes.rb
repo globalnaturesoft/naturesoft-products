@@ -36,6 +36,7 @@ Naturesoft::Products::Engine.routes.draw do
         put "enable"
         put "disable"
         delete "delete"
+        get "select2"
       end
     end
   end
