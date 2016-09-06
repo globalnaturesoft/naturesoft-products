@@ -23,9 +23,9 @@
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <label class="col-md-4 control-label" ><%= t(:price) %> <span class='text-danger'>*</span></label>
+      <label class="col-md-4 control-label" ><%= t(:price) %> </label>
       <div class="col-md-8">
-        <input value="<%= item.price %>" class="form-control number_input required" name="product[product_properties_attributes][<%= index %>][price]" />
+        <input value="<%= item.price %>" class="form-control number_input" name="product[product_properties_attributes][<%= index %>][price]" />
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
     <div class="form-group">
       <div><%= t(:remove) %> </div>
       <div class="">
-        <input type="checkbox" value="true" class="checkbox required delete" name="product[product_properties_attributes][<%= index %>][_destroy]" />
+        <input type="checkbox" value="true" class="checkbox delete" name="product[product_properties_attributes][<%= index %>][_destroy]" />
       </div>
     </div>
   </div>

@@ -40,7 +40,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:new_price) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:price) %> <span class='text-danger'>*</span></label>
                     <div class="col-md-10">
                         <%= f.text_field :new_price, class: "form-control number_input required" %>
                     </div>
@@ -153,16 +153,16 @@
             
             <div class="tab-pane has-padding" id="control-tab3">
                 <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:discount) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:discount) %> </label>
                     <div class="col-md-10">
-                        <%= f.text_field :discount, class: "form-control number_input required" %>
+                        <%= f.text_field :discount, class: "form-control number_input" %>
                     </div>
                 </div>
                     
                 <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:old_price) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:old_price) %> </label>
                     <div class="col-md-10">
-                        <%= f.text_field :old_price, class: "form-control number_input required" %>
+                        <%= f.text_field :old_price, class: "form-control number_input" %>
                     </div>
                 </div>
             </div>

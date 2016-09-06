@@ -61,6 +61,7 @@
                         <th><%= t(:name) %></th>
                         <th><%= t(:price) %></th>
                         <th><%= t(:created_at) %></th>
+                        <th><%= t(:status) %></th>
                         <th class="text-center"><%= t(:actions) %></th>
                     </tr>
                 </thead>
@@ -77,11 +78,11 @@
                                 <a href="<%= naturesoft_products.edit_admin_product_path(item) %>"><%= image_tag(image_src(item.main_image.image_url.system), class: "img-rounded img-preview") %></a>
                             </td>
                             <td class="kq_search">
-                              <%= item.name %><br>
-                              <%= display_status(item.status) %>
+                              <%= item.name %>
                             </td>
                             <td><%= format_number(item.new_price) %></td>
                             <td><%= item.created_at.strftime("%d/%m/%Y") %></td>
+                            <td><%= display_status(item.status) %></td>
                             <td class="text-center">
                               <div class="btn-group">
                                 <%= link_to '<i class="icon-pencil"></i>'.html_safe, naturesoft_products.edit_admin_product_path(item), class: "btn bg-teal btn-icon btn-xs", title: item.name %>
