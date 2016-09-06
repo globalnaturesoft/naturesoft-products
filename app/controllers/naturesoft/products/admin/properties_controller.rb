@@ -75,6 +75,11 @@ module Naturesoft
           @properties.destroy_all
           render text: 'Property(s) was successfully destroyed.'
         end
+        
+        # GET /categories/select2
+        def select2
+          render json: Property.select2(params)
+        end
     
         private
           # Use callbacks to share common setup or constraints between actions.
