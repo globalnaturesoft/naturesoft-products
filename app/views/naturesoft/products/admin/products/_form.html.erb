@@ -40,7 +40,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:new_price) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:price) %> <span class='text-danger'>*</span></label>
                     <div class="col-md-10">
                         <%= f.text_field :new_price, class: "form-control number_input required" %>
                     </div>
@@ -64,9 +64,19 @@
                   <label class="col-md-2 control-label" ><%= t(:manufacturer) %> <span class='text-danger'>*</span></label>
                   <div class="col-md-10">
                     <div class="input-group">
-                        <%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>
+                        <!--<%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>-->
+                        
+                        <% selected = options_for_select([[product.manufacturer.name, product.manufacturer_id]], product.manufacturer_id) if product.manufacturer.present? %>
+                        <%= select_tag("product[manufacturer_id]",
+                          selected,
+                          {
+                            class: "select2-ajax required",
+                            include_blank: "none",
+                            "data-url": select2_admin_manufacturers_path,
+                          }
+                        ) %>
                         <span class="input-group-btn">
-                          <a class="btn btn-info" href="#"><i class="icon-plus2"></i></a>
+                          <a class="btn btn-info" href="<%= naturesoft_products.new_admin_manufacturer_path %>"><i class="icon-plus2"></i></a>
                         </span>
                     </div>
                   </div>
@@ -99,13 +109,23 @@
                 </div>
                     
                 <div class="form-group field">
-                    <label class="col-md-2 control-label" ><%= t(:label) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:label) %> </label>
                     <div class="col-md-10">
-                        <select name="label_ids[]" id="label_ids" class="multi-select2-labels" data-placeholder="<%= t(:placeholder_labels) %>..." multiple="multiple">
-                            <% Naturesoft::Products::Label.all.each do |item| %>
-                                <option <%= "selected" if product.labels.include?(item) %> value="<%= item.id %>"><%= item.name %></option>
-                            <% end %>
-                        </select>
+                      <div class="input-group">
+                        <% selected = options_for_select((product.labels.map {|c| [c.name, c.id]}),product.labels.map(&:id)) %>
+                        <%= select_tag("label_ids[]",
+                          selected,
+                          {
+                            class: "select2-ajax",
+                            include_blank: "none",
+                            multiple: "multiple",
+                            "data-url": select2_admin_labels_path,
+                          }
+                        ) %>
+                        <span class="input-group-btn">
+                          <a class="btn btn-info" href="<%= naturesoft_products.new_admin_label_path %>"><i class="icon-plus2"></i></a>
+                        </span>
+                      </div>
                     </div>
                 </div>
                   
@@ -143,16 +163,16 @@
             
             <div class="tab-pane has-padding" id="control-tab3">
                 <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:discount) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:discount) %> </label>
                     <div class="col-md-10">
-                        <%= f.text_field :discount, class: "form-control number_input required" %>
+                        <%= f.text_field :discount, class: "form-control number_input" %>
                     </div>
                 </div>
                     
                 <div class="form-group">
-                    <label class="col-md-2 control-label" ><%= t(:old_price) %> <span class='text-danger'>*</span></label>
+                    <label class="col-md-2 control-label" ><%= t(:old_price) %> </label>
                     <div class="col-md-10">
-                        <%= f.text_field :old_price, class: "form-control number_input required" %>
+                        <%= f.text_field :old_price, class: "form-control number_input" %>
                     </div>
                 </div>
             </div>

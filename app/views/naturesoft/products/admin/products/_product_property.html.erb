@@ -4,12 +4,26 @@
     <div class="form-group">
       <label class="col-md-4 control-label" ><%= t(:property) %> <span class='text-danger'>*</span></label>
       <div class="col-md-8">
-        <select name="product[product_properties_attributes][<%= index %>][property_id]" class="select2" data-placeholder="<%= t(:placeholder_labels) %>...">
-            <option><%= t(:none) %></option>
-            <% Naturesoft::Products::Property.all.each do |pt| %>
-                <option<%= ' selected' if pt.id == item.property_id %> value="<%= pt.id %>"><%= pt.name %></option>
-            <% end %>
-        </select>
+        <div class="input-group">
+          <!--<select name="product[product_properties_attributes][<%= index %>][property_id]" class="select2" data-placeholder="<%= t(:placeholder_labels) %>...">
+              <option><%= t(:none) %></option>
+              <% Naturesoft::Products::Property.all.each do |pt| %>
+                  <option<%= ' selected' if pt.id == item.property_id %> value="<%= pt.id %>"><%= pt.name %></option>
+              <% end %>
+          </select>-->
+          <% selected = options_for_select([[item.property.name, item.property_id]],item.property_id) if item.property.present? %>
+          <%= select_tag("product[product_properties_attributes][" + index.to_s + "][property_id]",
+            selected,
+            {
+              class: "select2-ajax required",
+              include_blank: "none",
+              "data-url": select2_admin_properties_path,
+            }
+          ) %>
+          <span class="input-group-btn">
+            <a class="btn btn-info" href="<%= naturesoft_products.new_admin_property_path %>"><i class="icon-plus2"></i></a>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -23,9 +37,9 @@
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <label class="col-md-4 control-label" ><%= t(:price) %> <span class='text-danger'>*</span></label>
+      <label class="col-md-4 control-label" ><%= t(:price) %> </label>
       <div class="col-md-8">
-        <input value="<%= item.price %>" class="form-control number_input required" name="product[product_properties_attributes][<%= index %>][price]" />
+        <input value="<%= item.price %>" class="form-control number_input" name="product[product_properties_attributes][<%= index %>][price]" />
       </div>
     </div>
   </div>
@@ -33,7 +47,7 @@
     <div class="form-group">
       <div><%= t(:remove) %> </div>
       <div class="">
-        <input type="checkbox" value="true" class="checkbox required delete" name="product[product_properties_attributes][<%= index %>][_destroy]" />
+        <input type="checkbox" value="true" class="checkbox delete" name="product[product_properties_attributes][<%= index %>][_destroy]" />
       </div>
     </div>
   </div>
