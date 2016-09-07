@@ -32,7 +32,7 @@
     <div class="form-group">
       <label class="col-md-2 control-label" ><%= t(:parent_category) %></label>
         <div class="col-md-10">
-            <% selected = options_for_select([[category.parent.full_name,category.parent.id]],1) if category.parent.present? %>
+            <% selected = options_for_select([[category.parent.full_name,category.parent_id]],category.parent_id) if category.parent.present? %>
             <%= select_tag("category[parent_id]",
               selected,
               {
