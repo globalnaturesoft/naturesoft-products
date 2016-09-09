@@ -1,0 +1,14 @@
+<% category = Naturesoft::Products::Category.where(id: params["id"]).first %>
+<div class="form-group">
+    <label class="col-md-2 control-label" ><%= t(:category_id) %> <span class='text-danger'>*</span></label>
+    <div class="col-md-10">
+        <% selected = options_for_select([[category.name,category.id]],category.id) if !category.nil? %>
+        <%= select_tag("params[id]",
+          selected,
+          {
+            class: "select2-ajax",
+            "data-url": naturesoft_products.select2_admin_categories_path,
+          }
+        ) %>
+    </div>
+</div>
