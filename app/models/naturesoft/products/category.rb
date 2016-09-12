@@ -6,7 +6,6 @@ module Naturesoft::Products
     has_and_belongs_to_many :products
     belongs_to :parent, class_name: "Category", optional: true
     has_many :children, class_name: "Category", foreign_key: "parent_id"
-    
     after_save :update_level
     
     def update_level
@@ -89,6 +88,16 @@ module Naturesoft::Products
 			options = [{"id" => "", "text" => "none"}]
 			options += items.map { |c| {"id" => c.id, "text" => c.full_name} }
 			result = {"items" => options}
+		end
+    
+    # get self and children ids
+    def get_self_and_children_ids
+      
+		end
+    
+    # get products for categories
+    def get_self_and_children_ids
+      
 		end
     
   end
