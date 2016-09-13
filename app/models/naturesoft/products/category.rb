@@ -45,11 +45,11 @@ module Naturesoft::Products
         end
       end
       
-      # Parent menu
-      if params[:parent_id] != "all"
-				p_id = params[:parent_id].present? ? params[:parent_id] : nil
-				records = records.where(parent_id: p_id)
-			end
+#      # Parent menu
+#      if params[:parent_id] != "all"
+#				p_id = params[:parent_id].present? ? params[:parent_id] : nil
+#				records = records.where(parent_id: p_id)
+#			end
       
       # for sorting
       sort_by = params[:sort_by].present? ? params[:sort_by] : "naturesoft_products_categories.name"
@@ -92,12 +92,29 @@ module Naturesoft::Products
     
     # get self and children ids
     def get_self_and_children_ids
-      
+      ids = [self.id]
+      ids += get_children_ids_recursive
+      return ids
+		end
+    
+    # get children ids recursive
+    def get_children_ids_recursive
+      ids = []
+      children.each do |c|
+				if !c.children.empty?
+					ids += c.get_children_ids_recursive
+				end
+				ids << c.id
+			end
+      return ids
 		end
     
     # get products for categories
-    def get_self_and_children_ids
-      
+    def get_products(params)
+			category = Naturesoft::Products::Category.find(params[:id])
+			records = Naturesoft::Products::Product.joins(:categories).where(naturesoft_products_categories: {id: category.get_self_and_children_ids}).uniq
+			
+			return records
 		end
     
   end

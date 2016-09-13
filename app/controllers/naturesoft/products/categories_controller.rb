@@ -5,6 +5,7 @@ module Naturesoft
       
       def list
         @body_class = "category-page"
+        @products = @category.get_products(params)
       end
       
       private
