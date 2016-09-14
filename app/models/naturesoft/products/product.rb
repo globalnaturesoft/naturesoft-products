@@ -65,5 +65,38 @@ module Naturesoft::Products
 			return img.nil? ? images.last : img
 		end
     
+    # display short description from text area to html
+    def display_short_description
+			html = short_description.gsub("\r\n", "<br/>")
+			return html.html_safe
+		end
+    
+    # get all products
+    def self.get_all_products
+			self.where(status: "active")
+		end
+    
+    # get newest products
+    def self.get_newest_products(params)
+			records = self.get_all_products.limit(4)
+		end
+    
+    # get related products
+    def get_related_products
+			records = Naturesoft::Products::Product.get_all_products
+			return records
+		end
+    
+    # get recommended products
+    def get_recommended_products
+			records = Naturesoft::Products::Product.get_all_products
+			return records
+		end
+    
+    # get on sales products
+    def self.get_on_sales_products(params)
+			records = self.get_all_products.limit(5)
+		end
+    
   end
 end
