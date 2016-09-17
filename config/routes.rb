@@ -1,4 +1,10 @@
 Naturesoft::Products::Engine.routes.draw do
+  resources :carts
+  resources :cart_items do
+    collection do
+      get "add_to_cart"
+    end    
+  end
   namespace :admin, module: "admin", path: "admin/products" do
     resources :products do
       collection do

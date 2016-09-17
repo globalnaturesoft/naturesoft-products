@@ -7,6 +7,8 @@ module Naturesoft::Products
     has_and_belongs_to_many :labels
     has_and_belongs_to_many :properties
     has_many :images, dependent: :destroy, :inverse_of => :product
+    has_many :cart_items
+    before_destroy :ensure_not_referenced_by_any_cart_item
     accepts_nested_attributes_for :images,
 				:reject_if => lambda { |a| a[:image_url].blank? && a[:id].blank? },
 				:allow_destroy => true
@@ -97,6 +99,18 @@ module Naturesoft::Products
     def self.get_on_sales_products(params)
 			records = self.get_all_products.limit(5)
 		end
+    
+    private
+    
+			# ensure that there are no cart items referencing this product
+			def ensure_not_referenced_by_any_cart_item
+				if cart_items.empty?
+					return true
+				else
+					errors.add(:base, "Cart Items present")
+					return false
+				end
+			end
     
   end
 end
