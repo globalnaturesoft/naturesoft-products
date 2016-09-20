@@ -37,6 +37,18 @@ module Naturesoft
         @cart.destroy
         redirect_to naturesoft_products.carts_path
       end
+      
+      def login
+      end
+      
+      def customer_info
+      end
+      
+      def delivery_info
+      end
+      
+      def confirm
+      end
     
       private
         # Use callbacks to share common setup or constraints between actions.
