@@ -39,15 +39,27 @@ module Naturesoft
       end
       
       def login
+        if @cart.cart_items.empty?
+          redirect_to naturesoft_products.carts_path
+        end
       end
       
       def customer_info
+        if @cart.cart_items.empty?
+          redirect_to naturesoft_products.carts_path
+        end
       end
       
       def delivery_info
+        if @cart.cart_items.empty?
+          redirect_to naturesoft_products.carts_path
+        end
       end
       
       def confirm
+        if @cart.cart_items.empty?
+          redirect_to naturesoft_products.carts_path
+        end
       end
     
       private
