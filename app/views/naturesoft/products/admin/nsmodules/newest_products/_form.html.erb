@@ -8,7 +8,7 @@
             <%= select_tag("options[category_id]",
               selected,
               {
-                class: "select2-ajax",
+                class: "select2-ajax required",
                 include_blank: "none",
                 "data-url": naturesoft_products.select2_admin_categories_path,
               }
