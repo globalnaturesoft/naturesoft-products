@@ -1,12 +1,10 @@
 <%
   options = nsmodule.get_options
-  category = Naturesoft::Products::Category.find(options["category_id"])
-  products = Naturesoft::Products::Product.get_newest_products(params)
+  products = Naturesoft::Products::Product.get_on_sales_products(params)
 %>
 
 <%= render "naturesoft/"+nsmodule.engine_name+"/admin/nsmodules/"+nsmodule.module_name+"/templates/" + options["style"],
   nsmodule: nsmodule,
-  category: category,
   products: products,
   options: options
 %>

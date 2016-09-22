@@ -4,7 +4,20 @@ Naturesoft::Nsmodule.class_eval do
       "label" => "Newest products",
       "options" => {
         "category_id" => nil,
-        "number_of_products" => 5
+        "number_of_products" => 5,
+        "style" => "default"
+      }
+    },
+    "bestseller_products" => {
+      "label" => "Bestseller products",
+      "options" => {
+        "style" => "default"
+      }
+    },
+    "onsales_products" => {
+      "label" => "On sales products",
+      "options" => {
+        "style" => "default"
       }
     }
   }

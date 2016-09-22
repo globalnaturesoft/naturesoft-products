@@ -79,8 +79,8 @@ module Naturesoft::Products
 		end
     
     # get newest products
-    def self.get_newest_products(params)
-			records = self.get_all_products.limit(4)
+    def self.get_newest_products(params, num=4)
+			records = self.get_all_products.limit(num)
 		end
     
     # get related products
@@ -97,6 +97,11 @@ module Naturesoft::Products
     
     # get on sales products
     def self.get_on_sales_products(params)
+			records = self.get_all_products.limit(5)
+		end
+    
+    # get bestseller products
+    def self.get_bestseller_products(params)
 			records = self.get_all_products.limit(5)
 		end
     
