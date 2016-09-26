@@ -1,6 +1,6 @@
 module Naturesoft
   module Products
-    class CartItemsController < Naturesoft::ApplicationController
+    class CartItemsController < Naturesoft::FrontendController
       before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
     
       # POST /cart_items
