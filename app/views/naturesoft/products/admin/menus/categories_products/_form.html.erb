@@ -12,3 +12,22 @@
         ) %>
     </div>
 </div>
+<div class="form-group">
+    <label class="col-md-2 control-label" ><%= t(:manufacturer) %> <span class='text-danger'>*</span></label>
+    <div class="col-md-10">
+      <div class="input-group">
+          <% selected = options_for_select([[params[:manufacturer_id], params[:manufacturer_id]]], params[:manufacturer_id]) if params[:manufacturer_id].present? %>
+          <%= select_tag("params[manufacturer_id]",
+            selected,
+            {
+              class: "select2-ajax",
+              include_blank: "none",
+              "data-url": naturesoft_products.select2_admin_manufacturers_path,
+            }
+          ) %>
+          <span class="input-group-btn">
+            <a class="btn btn-info" href="<%= naturesoft_products.new_admin_manufacturer_path %>"><i class="icon-plus2"></i></a>
+          </span>
+      </div>
+    </div>
+</div>

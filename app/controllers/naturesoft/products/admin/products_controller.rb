@@ -114,6 +114,7 @@ module Naturesoft
           # Only allow a trusted parameter "white list" through.
           def product_params
             params.fetch(:product, {}).permit(:name,
+                                              :erp_id,
                                               :code,
                                               :new_price,
                                               :quantity,

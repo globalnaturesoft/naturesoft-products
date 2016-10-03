@@ -6,7 +6,8 @@ if Naturesoft::Core.available?("menus")
         "controller" => "/naturesoft/products/categories",
         "action" => "list",
         "params" => {
-          "id" => nil
+          "id" => nil,
+          "manufacturer_id" => nil,
         }
       }
     }
