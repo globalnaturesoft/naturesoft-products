@@ -16,9 +16,9 @@
     <label class="col-md-2 control-label" ><%= t(:manufacturer) %> <span class='text-danger'>*</span></label>
     <div class="col-md-10">
       <div class="input-group">
-          <% selected = options_for_select([[params[:manufacturer_id], params[:manufacturer_id]]], params[:manufacturer_id]) if params[:manufacturer_id].present? %>
+          <% m_selected = options_for_select([[params[:manufacturer_id], params[:manufacturer_id]]], params[:manufacturer_id]) if params[:manufacturer_id].present? %>
           <%= select_tag("params[manufacturer_id]",
-            selected,
+            m_selected,
             {
               class: "select2-ajax",
               include_blank: "none",
