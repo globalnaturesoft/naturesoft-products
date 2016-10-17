@@ -5,6 +5,13 @@ module Naturesoft
       
       def list
         @body_class = "category-page"
+        @page_title = @category.name
+        
+        # Manufaturer
+        if params[:manufacturer_id].present?
+          @page_title += " " + Manufacturer.find(params[:manufacturer_id]).name
+        end
+        
         @products = @category.get_products(params)
       end
       

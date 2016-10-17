@@ -114,6 +114,11 @@ module Naturesoft::Products
 			category = Naturesoft::Products::Category.find(params[:id])
 			records = Naturesoft::Products::Product.joins(:categories).where(naturesoft_products_categories: {id: category.get_self_and_children_ids}).uniq
 			
+			# Manufaturer
+			if params[:manufacturer_id].present?
+				records = records.where(manufacturer_id: params[:manufacturer_id])
+			end
+			
 			return records
 		end
     
