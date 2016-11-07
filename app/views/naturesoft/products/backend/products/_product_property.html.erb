@@ -1,0 +1,58 @@
+<%= hidden_field_tag "product[product_properties_attributes]["+index.to_s+"][id]", item.id %>
+<div class="row addable-row" data-index="<%= index %>">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="col-md-4 control-label" ><%= t(:property) %> <span class='text-danger'>*</span></label>
+      <div class="col-md-8">
+        <div class="input-group">
+          <!--<select name="product[product_properties_attributes][<%= index %>][property_id]" class="select2" data-placeholder="<%= t(:placeholder_labels) %>...">
+              <option><%= t(:none) %></option>
+              <% Naturesoft::Products::Property.all.each do |pt| %>
+                  <option<%= ' selected' if pt.id == item.property_id %> value="<%= pt.id %>"><%= pt.name %></option>
+              <% end %>
+          </select>-->
+          <% selected = options_for_select([[item.property.name, item.property_id]],item.property_id) if item.property.present? %>
+          <%= select_tag("product[product_properties_attributes][" + index.to_s + "][property_id]",
+            selected,
+            {
+              class: "select2-ajax required",
+              include_blank: "none",
+              "data-url": naturesoft_products.select2_backend_properties_path,
+            }
+          ) %>
+          <span class="input-group-btn">
+            <a class="btn btn-info" href="<%= naturesoft_products.new_backend_property_path %>"><i class="icon-plus2"></i></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="col-md-4 control-label" ><%= t(:value) %> <span class='text-danger'>*</span></label>
+      <div class="col-md-8">
+        <input value="<%= item.value %>" class="form-control required" name="product[product_properties_attributes][<%= index %>][value]" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+      <label class="col-md-4 control-label" ><%= t(:price) %> </label>
+      <div class="col-md-8">
+        <input value="<%= item.price %>" class="form-control number_input" name="product[product_properties_attributes][<%= index %>][price]" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1 hide">
+    <div class="form-group">
+      <div><%= t(:remove) %> </div>
+      <div class="">
+        <input type="checkbox" value="true" class="checkbox delete" name="product[product_properties_attributes][<%= index %>][_destroy]" />
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <a href="#add" class="btn btn-danger addable-nested-remove"><i class="icon-cross2"></i></a>
+  </div>
+  <hr style="clear: both" />
+</div>

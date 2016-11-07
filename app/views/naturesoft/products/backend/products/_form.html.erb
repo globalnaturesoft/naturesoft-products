@@ -1,0 +1,213 @@
+<% if product.errors.any? %>
+  <div class="alert alert-warning alert-bordered">
+    <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this manufacturer from being saved:</h2>
+  
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for([naturesoft_products, :backend, product], html: {class: "form-horizontal validate", multipart: true}) do |f| %>
+    
+     <div class="tabbable tab-content-bordered">
+        <ul class="nav nav-tabs bg-primary">
+            <li class="active"><a href="#control-tab1" data-toggle="tab"><%= t(:infomations) %></a></li>
+            <li><a href="#description-tab" data-toggle="tab"><%= t(:description) %> </a></li>
+            <li><a href="#control-tab2" data-toggle="tab"><%= t(:images) %> </a></li>
+            <li><a href="#control-tab3" data-toggle="tab"><%= t(:discount) %> </a></li>
+            <li><a href="#control-tab4" data-toggle="tab"><%= t(:property) %> </a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane has-padding active" id="control-tab1">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:name) %> <span class='text-danger'>*</span></label>
+                    <div class="col-md-10">
+                        <%= f.text_field :name, class: "form-control required" %>
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:code) %> <span class='text-danger'>*</span></label>
+                    <div class="col-md-10">
+                        <%= f.text_field :code, class: "form-control required" %>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:price) %> <span class='text-danger'>*</span></label>
+                    <div class="col-md-10">
+                        <%= f.text_field :new_price, class: "form-control number_input required" %>
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:quantity) %> <span class='text-danger'>*</span></label>
+                    <div class="col-md-10">
+                        <%= f.text_field :quantity, class: "form-control number_input required" %>
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:unit) %> <span class='text-danger'>*</span></label>
+                    <div class="col-md-10">
+                        <%= f.text_field :unit, class: "form-control required" %>
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                  <label class="col-md-2 control-label" ><%= t(:manufacturer) %> <span class='text-danger'>*</span></label>
+                  <div class="col-md-10">
+                    <div class="input-group">
+                        <!--<%= f.collection_select(:manufacturer_id, Naturesoft::Products::Manufacturer.all, :id, :name, {:prompt=> "Choose manufacturer..."}, {class: "select2 required"}) %>-->
+                        
+                        <% selected = options_for_select([[product.manufacturer.name, product.manufacturer_id]], product.manufacturer_id) if product.manufacturer.present? %>
+                        <%= select_tag("product[manufacturer_id]",
+                          selected,
+                          {
+                            class: "select2-ajax required",
+                            include_blank: "none",
+                            "data-url": select2_backend__manufacturers_path,
+                          }
+                        ) %>
+                        <span class="input-group-btn">
+                          <a class="btn btn-info" href="<%= naturesoft_products.new_backend__manufacturer_path %>"><i class="icon-plus2"></i></a>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                  
+                <div class="form-group field">
+                    <label class="col-md-2 control-label" ><%= t(:category) %> <span class='text-danger'>*</span></label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                          <!--<select name="category_ids[]" id="category_ids" class="multi-select2-categories" data-placeholder="<%= t(:placeholder_categories) %>..." multiple="multiple">
+                              <% Naturesoft::Products::Category.all.each do |item| %>
+                                  <option <%= "selected" if product.categories.include?(item) %> value="<%= item.id %>"><%= item.full_name %></option>
+                              <% end %>
+                          </select>-->
+                          <% selected = options_for_select((product.categories.map {|c| [c.name, c.id]}),product.categories.map(&:id)) %>
+                          <%= select_tag("category_ids[]",
+                            selected,
+                            {
+                              class: "select2-ajax required",
+                              include_blank: "none",
+                              multiple: "multiple",
+                              "data-url": select2_backend__categories_path,
+                            }
+                          ) %>
+                          <span class="input-group-btn">
+                            <a class="btn btn-info" href="<%= naturesoft_products.new_backend__category_path %>"><i class="icon-plus2"></i></a>
+                          </span>
+                      </div>
+                    </div>
+                </div>
+                    
+                <div class="form-group field">
+                    <label class="col-md-2 control-label" ><%= t(:label) %> </label>
+                    <div class="col-md-10">
+                      <div class="input-group">
+                        <% selected = options_for_select((product.labels.map {|c| [c.name, c.id]}),product.labels.map(&:id)) %>
+                        <%= select_tag("label_ids[]",
+                          selected,
+                          {
+                            class: "select2-ajax",
+                            include_blank: "none",
+                            multiple: "multiple",
+                            "data-url": select2_backend__labels_path,
+                          }
+                        ) %>
+                        <span class="input-group-btn">
+                          <a class="btn btn-info" href="<%= naturesoft_products.new_backend__label_path %>"><i class="icon-plus2"></i></a>
+                        </span>
+                      </div>
+                    </div>
+                </div>
+                  
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:short_description) %> <!--<span class='text-danger'>*</span>--></label>
+                    <div class="col-md-10">
+                        <%= f.text_area :short_description, rows: "5", cols: "5", class: "form-control editor_2" %>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane has-padding" id="description-tab">
+              <div class="form-group">
+                <div class="col-md-12">
+                  <%= f.text_area :description, rows: "4", cols: "4", class: "editor" %>
+                </div>
+              </div>
+            </div>
+                 
+            <div class="tab-pane has-padding addable-form" data-sample="image-form" id="control-tab2">
+              <div class="addable-container">
+                <% product.images.each_with_index do |image,index| %>
+                  <%= render "image_form", item: image, index: index %>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="text-left">
+                    <a href="#add" class="btn btn-info addable-add"><%= t(:add_image) %> <i class="icon-plus2 position-center"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tab-pane has-padding" id="control-tab3">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:discount) %> </label>
+                    <div class="col-md-10">
+                        <%= f.text_field :discount, class: "form-control number_input" %>
+                    </div>
+                </div>
+                    
+                <div class="form-group">
+                    <label class="col-md-2 control-label" ><%= t(:old_price) %> </label>
+                    <div class="col-md-10">
+                        <%= f.text_field :old_price, class: "form-control number_input" %>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="tab-pane has-padding addable-form" data-sample="product-property" id="control-tab4">
+              <div class="addable-container">
+                <% product.product_properties.each_with_index do |property,index| %>
+                  <%= render "product_property", item: property, index: index %>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="text-left">
+                    <a href="#add" class="btn btn-info addable-add"><%= t(:add_property) %> <i class="icon-plus2 position-center"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <br />            
+      <div class="text-right">
+          <%= button_tag "#{t(:save)} <i class=\"icon-plus22 position-right\"></i>".html_safe, class: "btn btn-primary"%>
+      </div>
+    
+<% end %>
+
+<!-- thumbnail size sample form -->
+<div class="image-form hide">
+  <%= render 'image_form', item: Naturesoft::Products::Image.new, index: "<<index>>" %>
+</div>
+<!--/thumbnail size sample form -->
+
+<!-- choose properties for product -->
+<div class="product-property hide">
+  <%= render 'product_property', item: Naturesoft::Products::ProductProperty.new, index: "<<index>>" %>
+</div>
+<!--/choose properties for product -->

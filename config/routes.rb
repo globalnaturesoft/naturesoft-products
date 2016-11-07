@@ -5,7 +5,7 @@ Naturesoft::Products::Engine.routes.draw do
       get "add_to_cart"
     end    
   end
-  namespace :admin, module: "admin", path: "admin/products" do
+  namespace :backend, module: "backend", path: "backend/products" do
     resources :products do
       collection do
         put "enable"
